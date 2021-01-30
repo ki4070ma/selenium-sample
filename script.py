@@ -4,7 +4,7 @@ if __name__ == "__main__":
     from selenium import webdriver
 
     options = webdriver.ChromeOptions()
-    # options.add_argument('--headless')
+    options.add_argument('--headless')
     driver = webdriver.Chrome(options=options)  # 今は chrome_options= ではなく options=
 
     driver.get('https://www.google.com/')
@@ -15,5 +15,16 @@ if __name__ == "__main__":
     search_box.submit()
     print(driver.title)
 
-    driver.save_screenshot('search_results.png')
+    els = driver.find_elements_by_class_name("g")
+    print(len(els))
+    print(els[0])
+
+    els = driver.find_elements_by_class_name("tF2Cxc")
+    for e in els:
+        print('*'*10)
+        # print(e.find_element_by_xpath("//*[contains(@class, 'LC20lb')]").text)
+        print(e.find_element_by_class_name('LC20lb').text)
+        print(e.find_element_by_tag_name('a').get_attribute('href'))
+
+    # driver.save_screenshot('search_results.png')
     driver.quit()
